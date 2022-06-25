@@ -111,4 +111,23 @@ select * from AddressBook where State='Karnataka';
 select COUNT(State) from AddressBook;
 select Type, count(*) as NoOfContacts
 from AddressBook group by (Type);
+--Stored Procedure
+go
+CREATE PROCEDURE SpAddAddressBook
+(@First_Name VARCHAR(25),
+@Last_Name VARCHAR(30),
+@Address varchar(30),
+@City VARCHAR(30),
+@State varchar(30),
+@Zip int,
+@Phone_Number VARCHAR(50),
+@Email varchar(30),
+@Name varchar(30),
+@Type varchar(30)
+)
+AS
+BEGIN
+INSERT INTO AddressBook VALUES(@First_Name,@Last_Name,@Address,@City,@State,@Zip,@Phone_Number,@Email,@Name,@Type)
+END
 
+delete from ContactType where Type_ID=5;

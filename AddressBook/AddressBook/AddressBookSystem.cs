@@ -87,7 +87,51 @@ namespace AddressBook
                 command.ExecuteNonQuery();
                 connect.Close();
             }
-
+        }
+        //Create Record in Address Book
+        public void createRecord()
+        {
+            SqlConnection connect = new SqlConnection(connectionString);
+            using (connect)
+            {
+                connect.Open();
+                Book book = new Book();
+                Console.WriteLine("First Name of Person:");
+                book.FName = Console.ReadLine();
+                Console.WriteLine("Last Name of Person:");
+                book.LName = Console.ReadLine();
+                Console.WriteLine("Address of Person:");
+                book.Address = Console.ReadLine();
+                Console.WriteLine("City of Person:");
+                book.City = Console.ReadLine();
+                Console.WriteLine("State of Person:");
+                book.State = Console.ReadLine();
+                Console.WriteLine("Zip of Person:");
+                book.Zip = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Contact of Person:");
+                book.Phone = Console.ReadLine();
+                Console.WriteLine("Email of Person:");
+                book.Email = Console.ReadLine();
+                Console.WriteLine("BookName:");
+                book.BookName = Console.ReadLine();
+                Console.WriteLine("BookType of Person:");
+                book.BookType = Console.ReadLine();
+                SqlCommand command = new SqlCommand("SpAddAddressBook", connect);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@First_Name", book.FName);
+                command.Parameters.AddWithValue("@Last_Name", book.LName);
+                command.Parameters.AddWithValue("@Address", book.Address);
+                command.Parameters.AddWithValue("@City", book.City);
+                command.Parameters.AddWithValue("@State", book.State);
+                command.Parameters.AddWithValue("@Zip", book.Zip);
+                command.Parameters.AddWithValue("@Phone_Number", book.Phone);
+                command.Parameters.AddWithValue("@Email", book.Email);
+                command.Parameters.AddWithValue("@Name", book.BookName);
+                command.Parameters.AddWithValue("@Type", book.BookType);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Record created successfully.");
+                connect.Close();
+            }
         }
     }
 }
